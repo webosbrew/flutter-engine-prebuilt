@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SOURCE_DIR=$(realpath $1)
+SOURCE_DIR=$(realpath $1 2>/dev/null)
 TARGET_DIR=$(realpath $(dirname $0))
 
 BUILD_PROFILE=$2
@@ -22,7 +22,7 @@ fi
 
 cd ${SOURCE_DIR}
 
-./flutter/tools/gn                                                      \
+./flutter/tools/gn                                                  \
 	--target-toolchain /opt/llvm-cross/arm-linux-gnueabi/toolchain  \
 	--target-sysroot /opt/llvm-cross/arm-linux-gnueabi/sysroot      \
 	--target-triple arm-linux-gnueabi                               \
@@ -33,7 +33,7 @@ cd ${SOURCE_DIR}
 	--embedder-for-target                                           \
 	--enable-fontconfig                                             \
 	--disable-desktop-embeddings                                    \
-        --no-full-dart-sdk                                              \
+	--no-full-dart-sdk                                              \
 	--no-build-glfw-shell                                           \
 	--no-goma                                                       \
 	--no-lto
